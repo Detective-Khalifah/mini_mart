@@ -8,22 +8,39 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
   void addItem(Product product) {
     final index = state.indexWhere((item) => item.product.id == product.id);
     if (index != -1) {
-      state[index] = CartItem(product, state[index].quantity + 1);
+      final newState = [...state];
+      newState[index] = CartItem(product, state[index].quantity + 1);
+      state = newState;
     } else {
       state = [...state, CartItem(product)];
     }
   }
 
-  void removeItem(String productId) {
+  void removeItem(int productId) {
     state = state.where((item) => item.product.id != productId).toList();
   }
 
-  void updateQuantity(String productId, int newQty) {
-    if (newQty < 1) return removeItem(productId);
-
+  void increaseQuantity(int productId) {
     final index = state.indexWhere((item) => item.product.id == productId);
     if (index != -1) {
-      state[index] = CartItem(state[index].product, newQty);
+      final newState = [...state];
+      newState[index] =
+          CartItem(state[index].product, state[index].quantity + 1);
+      state = newState;
+    }
+  }
+
+  void decreaseQuantity(int productId) {
+    final index = state.indexWhere((item) => item.product.id == productId);
+    if (index != -1) {
+      if (state[index].quantity <= 1) {
+        removeItem(productId);
+      } else {
+        final newState = [...state];
+        newState[index] =
+            CartItem(state[index].product, state[index].quantity - 1);
+        state = newState;
+      }
     }
   }
 

@@ -44,9 +44,24 @@ class _MiniMartState extends ConsumerState<MiniMart> {
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        leading: TextButton(
-          child: Text("Full Logo"),
-          onPressed: () {},
+        leading: FittedBox(
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              shape: BoxShape.rectangle,
+            ),
+            padding: const EdgeInsets.all(8),
+            // margin: const EdgeInsets.all(8),
+            child: Text(
+              "Full Logo",
+              style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                    color: Color(0xFF2563EB),
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ),
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

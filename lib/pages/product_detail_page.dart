@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mini_mart/models/product.dart';
 import 'package:mini_mart/widgets/add_to_cart_button.dart';
+import 'package:mini_mart/widgets/custom_app_bar.dart';
 
 class ProductDetailPage extends StatefulWidget {
   const ProductDetailPage({super.key, required this.product});
@@ -15,15 +16,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // automaticallyImplyLeading: true,
-        title: Text("Go back"),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        titleSpacing: 0,
-      ),
+      appBar: CustomAppBar(title: "Go back"),
       body: widget.product == null
           ? Center(child: Text("Product unavailable"))
           : Padding(

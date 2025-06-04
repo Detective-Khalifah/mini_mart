@@ -23,7 +23,7 @@ class AddToCartButton extends ConsumerWidget {
       onPressed: () {
         if (inCart) {
           // If the product is already in the cart, remove it
-          ref.read(cartProvider.notifier).removeItem(product.id.toString());
+          ref.read(cartProvider.notifier).removeItem(product.id);
 
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
