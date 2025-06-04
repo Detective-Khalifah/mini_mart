@@ -14,27 +14,23 @@ class ProductCard extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.pushNamed(
         context,
-        '/view_product',
+        '/product_detail',
         arguments: product,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Hero(
-            tag: "product_image_${product.id}",
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Hero(
+              tag: "product_image_${product.imagePath}",
               child: Image.asset(
                 product.imagePath,
                 width: 240,
                 height: 160,
                 fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Center(
-                    child:
-                        Text('Image not found', style: TextStyle(fontSize: 16)),
-                  );
-                },
+                errorBuilder: (context, error, stackTrace) =>
+                    const Center(child: Text('Image not found')),
               ),
             ),
           ),

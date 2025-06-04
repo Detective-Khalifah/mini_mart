@@ -36,10 +36,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               if (category != null)
-                Text(
-                  category!,
-                  style: TextStyle(fontSize: 24),
-                ),
+                Text(category!, style: TextStyle(fontSize: 24)),
               const SizedBox(height: 16),
               GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -49,9 +46,7 @@ class HomePage extends StatelessWidget {
                   mainAxisSpacing: 8,
                 ),
                 itemBuilder: (context, index) {
-                  return ProductCard(
-                    product: Constants.products[index],
-                  );
+                  return ProductCard(product: Constants.products[index]);
                 },
                 itemCount: Constants.products.length,
                 shrinkWrap: true,

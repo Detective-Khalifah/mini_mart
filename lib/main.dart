@@ -6,7 +6,7 @@ import "package:mini_mart/pages/cart_page.dart";
 import "package:mini_mart/pages/favourites_page.dart";
 import "package:mini_mart/pages/home_page.dart";
 import "package:mini_mart/pages/profile_page.dart";
-import "package:mini_mart/pages/view_product_page.dart";
+import "package:mini_mart/pages/product_detail_page.dart";
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -26,13 +26,13 @@ class MyApp extends StatelessWidget {
       // home: const MiniMart(),
       initialRoute: "/",
       onGenerateRoute: (settings) {
-        if (settings.name == "/view_product") {
+        if (settings.name == "/product_detail") {
           // Extract the arguments from the current ModalRoute
           // settings and cast them as Product.
           // final product = ModalRoute.of(context)!.settings.arguments as Product;
           final product = settings.arguments as Product?;
           return MaterialPageRoute(
-            builder: (context) => ViewProductPage(product: product),
+            builder: (context) => ProductDetailPage(product: product),
           );
         }
         return null; // Return null for unhandled routes
@@ -49,8 +49,6 @@ class MyApp extends StatelessWidget {
             ),
         "/home": (context) =>
             const HomePage(title: "Mini Mart", isAtHome: true),
-        // TODO: Replace with actual product data or pass it dynamically
-        // "/view_product": (context) => const ViewProductPage(product: null),
         "/cart": (context) => const CartPage(),
         "/favourites": (context) => const FavouritesPage(),
         "/profile": (context) => const ProfilePage(),
