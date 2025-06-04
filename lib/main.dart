@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:mini_mart/mini_mart.dart";
 import "package:mini_mart/models/product.dart";
 import "package:mini_mart/pages/cart_page.dart";
@@ -8,7 +9,7 @@ import "package:mini_mart/pages/profile_page.dart";
 import "package:mini_mart/pages/view_product_page.dart";
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
