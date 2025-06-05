@@ -1,6 +1,21 @@
 # mini_mart - eCommerce Preview App
 
-![App Screenshot](screenshots/app_preview.png) <!-- Add screenshot here -->
+## Screenshots
+
+<div style="display: flex; justify-content: space-around; gap: 20px;">
+   <div style="text-align: center;">
+      <p>Home</p>
+      <img src="assets/images/screenshots/home.png" alt="Home" width="200">
+   </div>
+   <div style="text-align: center;">
+      <p>Product Detail</p>
+      <img src="assets/images/screenshots/product_detail.png" alt="Product Detail" width="200">
+   </div>
+   <div style="text-align: center;">
+      <p>Cart</p>
+      <img src="assets/images/screenshots/cart.png" alt="Cart" width="200">
+   </div>
+</div>
 
 AlphaTwelve Mobile App Dev task. A 3-screen e-Commerce preview app  based on provided Figma designs, featuring product browsing, detailed product views, and cart management.
 
@@ -32,5 +47,9 @@ AlphaTwelve Mobile App Dev task. A 3-screen e-Commerce preview app  based on pro
    ```bash
    git clone https://github.com/Detective-Khalifah/mini_mart.git
    cd minimart
-2. Install dependencies: ```flutter pub get```
-3. Run the app: ```flutter run <platform (optional)>```
+2. Install dependencies:
+   ```bash
+   flutter pub get
+3. Run the app:
+   ```bash
+   flutter run <platform (optional)>

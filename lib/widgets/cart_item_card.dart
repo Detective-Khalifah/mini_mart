@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:hugeicons/hugeicons.dart";
 import "package:mini_mart/models/cart_item.dart";
 import "package:mini_mart/providers/cart_provider.dart";
 import "package:mini_mart/widgets/confirm_delete_cart_item_dialog.dart";
@@ -140,11 +141,9 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
                                 weight: 1.5,
                               ),
                               onPressed: () {
-                                // setState(() {
                                 cartNotifier.increaseQuantity(
                                   widget.item.product.id,
                                 );
-                                // });
                               },
                             ),
                           ),
@@ -155,7 +154,7 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
                           radius: 32,
                           child: IconButton(
                             icon: Icon(
-                              PhosphorIcons.trash(),
+                              HugeIcons.strokeRoundedDelete02,
                               color: Color(0xFF999999),
                               size: 36,
                               weight: 1.23,

@@ -9,7 +9,7 @@ import "package:mini_mart/pages/profile_page.dart";
 import "package:mini_mart/pages/product_detail_page.dart";
 import "package:mini_mart/widgets/blank_page_widget.dart";
 import "package:mini_mart/widgets/notification_toast/banner_overlay.dart";
-import "package:mini_mart/widgets/persistent_app_bar.dart";
+import "package:mini_mart/widgets/app_bar/persistent_app_bar.dart";
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));

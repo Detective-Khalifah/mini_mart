@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:phosphor_flutter/phosphor_flutter.dart";
 
 class PersistentAppBar extends StatelessWidget implements PreferredSizeWidget {
   const PersistentAppBar({super.key, this.body});
@@ -59,7 +60,7 @@ class PersistentAppBar extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none_rounded),
+            icon: Icon(PhosphorIcons.bell()),
             onPressed: () {},
           ),
         ],

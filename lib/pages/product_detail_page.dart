@@ -3,8 +3,9 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:mini_mart/models/product.dart";
 import "package:mini_mart/providers/favourites_provider.dart";
 import "package:mini_mart/widgets/buttons/add_to_cart_button.dart";
-import "package:mini_mart/widgets/custom_app_bar.dart";
+import "package:mini_mart/widgets/app_bar/custom_app_bar.dart";
 import "package:mini_mart/widgets/notification_toast/banner_overlay.dart";
+import "package:phosphor_flutter/phosphor_flutter.dart";
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key, required this.product});
@@ -64,8 +65,9 @@ class ProductDetailPage extends StatelessWidget {
                                     final isFavourite =
                                         favorites.contains(product);
 
-                                    return Align(
-                                      alignment: Alignment.topRight,
+                                    return Positioned(
+                                      top: 8,
+                                      right: 8,
                                       child: CircleAvatar(
                                         backgroundColor: Colors.white,
                                         child: IconButton(
@@ -77,9 +79,9 @@ class ProductDetailPage extends StatelessWidget {
                                           },
                                           icon: Icon(
                                             isFavourite
-                                                ? Icons.favorite_rounded
-                                                : Icons
-                                                    .favorite_outline_rounded,
+                                                ? PhosphorIcons.heart(
+                                                    PhosphorIconsStyle.fill)
+                                                : PhosphorIcons.heart(),
                                           ),
                                           color:
                                               isFavourite ? Colors.red : null,

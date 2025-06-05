@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:hugeicons/hugeicons.dart";
 import "package:mini_mart/pages/cart_page.dart";
 import "package:mini_mart/pages/favourites_page.dart";
 import "package:mini_mart/pages/home_page.dart";
 import "package:mini_mart/pages/profile_page.dart";
 import "package:mini_mart/providers/cart_provider.dart";
-import "package:mini_mart/widgets/persistent_app_bar.dart";
+import "package:mini_mart/widgets/app_bar/persistent_app_bar.dart";
 
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -66,17 +67,16 @@ class _MiniMartState extends ConsumerState<MiniMart> {
               destinations: [
                 // Default size -- 24
                 NavigationDestination(
-                    icon: Icon(PhosphorIcons.houseSimple()), label: 'Home'),
+                    icon: Icon(HugeIcons.strokeRoundedHome07), label: 'Home'),
                 NavigationDestination(
                   icon: Badge(
                     isLabelVisible: cart > 0 ? true : false,
                     label: Text(cart.toString()),
                     backgroundColor: Colors.blueGrey,
                     padding: const EdgeInsets.all(4),
-                    child: Icon(Icons.shopping_cart_outlined),
+                    child: Icon(HugeIcons.strokeRoundedShoppingCart01),
                   ),
                   label: 'Cart',
-                  selectedIcon: Icon(Icons.shopping_cart_rounded),
                 ),
                 NavigationDestination(
                   icon: Icon(PhosphorIcons.heart()),
@@ -84,7 +84,7 @@ class _MiniMartState extends ConsumerState<MiniMart> {
                   selectedIcon: Icon(Icons.favorite_sharp),
                 ),
                 NavigationDestination(
-                  icon: Icon(PhosphorIcons.userCircle()),
+                  icon: Icon(HugeIcons.strokeRoundedUserCircle),
                   label: 'Profile',
                   selectedIcon: Icon(PhosphorIcons.user()),
                 ),

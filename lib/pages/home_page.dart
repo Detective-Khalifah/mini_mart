@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:mini_mart/util/constants.dart";
-import "package:mini_mart/widgets/custom_app_bar.dart";
+import "package:mini_mart/widgets/app_bar/custom_app_bar.dart";
 import "package:mini_mart/widgets/product_card.dart";
 
 class HomePage extends StatelessWidget {
