@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_mart/providers/cart_provider.dart';
 import 'package:mini_mart/widgets/cart_item_card.dart';
+import 'package:mini_mart/widgets/checkout_button.dart';
 import 'package:mini_mart/widgets/custom_app_bar.dart';
 
 class CartPage extends ConsumerWidget {
@@ -21,43 +22,93 @@ class CartPage extends ConsumerWidget {
       appBar: CustomAppBar(title: "Your Cart"),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          shrinkWrap: true,
-          children: <Widget>[
-            ...cartItemsProvider.map((item) => CartItemCard(item: item)),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const SizedBox(height: 16),
-                Text(
-                  "Total: \$${cartNotifier.subtotal.toStringAsFixed(2)}",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: ListView(
+                shrinkWrap: true,
+                children: <Widget>[
+                  ...cartItemsProvider.map((item) => CartItemCard(item: item)),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    spacing: 8,
+                    children: [
+                      const SizedBox(height: 16),
+                      Text("Order info",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w700)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Subtotal:",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            "\$${cartNotifier.subtotal.toStringAsFixed(2)}",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Shipping:",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            "\$${cartNotifier.shippingCost.toStringAsFixed(2)}",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Total:",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            "\$${cartNotifier.total.toStringAsFixed(2)}",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    // Handle checkout logic here
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Checkout not implemented")),
-                    );
-                  },
-                  child: const Text("Checkout"),
-                ),
-              ],
+                ],
+              ),
             ),
+            CheckoutButton(onCheckout: () {
+              cartNotifier.clearCart();
+              // Navigator.of(context).pushNamed("/checkout");
+            }),
           ],
         ),
-        // ListView.builder(
-        //   itemCount: cartProv.length,
-        //   itemBuilder: (context, index) {
-        //     final item = cartProv[index];
-        //     return CartItemCard(item: item);
-        //   },
-        // ),
       ),
     );
   }

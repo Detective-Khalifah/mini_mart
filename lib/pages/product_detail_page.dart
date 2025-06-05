@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_mart/models/product.dart';
+import 'package:mini_mart/providers/favourites_provider.dart';
 import 'package:mini_mart/widgets/add_to_cart_button.dart';
 import 'package:mini_mart/widgets/custom_app_bar.dart';
 
-class ProductDetailPage extends StatefulWidget {
+class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key, required this.product});
 
   final Product? product;
 
   @override
-  State<ProductDetailPage> createState() => _ProductDetailPageState();
-}
-
-class _ProductDetailPageState extends State<ProductDetailPage> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(title: "Go back"),
-      body: widget.product == null
+      body: product == null
           ? Center(child: Text("Product unavailable"))
           : Padding(
               padding: const EdgeInsets.all(16),
@@ -44,9 +41,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     borderRadius: BorderRadius.circular(8),
                                     child: Hero(
                                       tag:
-                                          "product_image_${widget.product!.imagePath}",
+                                          "product_image_${product!.imagePath}",
                                       child: Image.asset(
-                                        widget.product!.imagePath,
+                                        product!.imagePath,
                                         fit: BoxFit.cover,
                                         errorBuilder: (context, error,
                                                 stackTrace) =>
@@ -56,27 +53,47 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.topRight,
-                                  child: CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        // Handle favorite action
-                                        ScaffoldMessenger.of(context)
-                                            .clearSnackBars();
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                                "${widget.product!.name} added to favorites"),
+                                Consumer(
+                                  builder: (BuildContext context, WidgetRef ref,
+                                      Widget? child) {
+                                    final favorites =
+                                        ref.watch(favouritesProvider);
+                                    final favouritesNotifier =
+                                        ref.read(favouritesProvider.notifier);
+                                    final isFavourite =
+                                        favorites.contains(product);
+
+                                    return Align(
+                                      alignment: Alignment.topRight,
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        child: IconButton(
+                                          onPressed: () {
+                                            ScaffoldMessenger.of(context)
+                                                .clearSnackBars();
+
+                                            favouritesNotifier
+                                                .toggleFavourite(product!);
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    "${product!.name} added to favorites"),
+                                              ),
+                                            );
+                                          },
+                                          icon: Icon(
+                                            isFavourite
+                                                ? Icons.favorite_rounded
+                                                : Icons.favorite_outline,
                                           ),
-                                        );
-                                      },
-                                      icon: Icon(Icons.favorite_outline),
-                                      color: Colors.red,
-                                    ),
-                                  ),
+                                          color:
+                                              isFavourite ? Colors.red : null,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  // child: ,
                                 ),
                               ],
                             ),
@@ -86,9 +103,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                             children: [
                               Flexible(
                                 child: Hero(
-                                  tag: "product_name_${widget.product!.id}",
+                                  tag: "product_name_${product!.id}",
                                   child: Text(
-                                    widget.product!.name,
+                                    product!.name,
                                     style:
                                         Theme.of(context).textTheme.titleLarge,
                                   ),
@@ -97,9 +114,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                               SizedBox(width: 8),
                               Flexible(
                                 child: Hero(
-                                  tag: "product_specs_${widget.product!.id}",
+                                  tag: "product_specs_${product!.id}",
                                   child: Text(
-                                    widget.product!.specs.join("|"),
+                                    product!.specs.join("|"),
                                     softWrap: true,
                                     style:
                                         Theme.of(context).textTheme.titleLarge,
@@ -110,9 +127,9 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           ),
                           const SizedBox(height: 16),
                           Hero(
-                            tag: "product_price_${widget.product!.id}",
+                            tag: "product_price_${product!.id}",
                             child: Text(
-                              "\$${widget.product!.price.toStringAsFixed(2)}",
+                              "\$${product!.price.toStringAsFixed(2)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall
@@ -131,8 +148,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 16.0),
                             child: Wrap(
-                              children:
-                                  widget.product!.description.map((descItem) {
+                              children: product!.description.map((descItem) {
                                 return Text(
                                   "- $descItem",
                                   style: Theme.of(context).textTheme.bodyLarge,
@@ -146,8 +162,7 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
                       ),
                     ),
                   ),
-                  // Spacer(),
-                  AddToCartButton(product: widget.product!),
+                  AddToCartButton(product: product!),
                 ],
               ),
             ),

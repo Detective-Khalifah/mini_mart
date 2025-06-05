@@ -3,44 +3,48 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:mini_mart/models/product.dart";
 import "package:mini_mart/providers/cart_provider.dart";
 
-class AddToCartButton extends ConsumerWidget {
-  final Product product;
+class CheckoutButton extends ConsumerWidget {
+  final VoidCallback onCheckout;
 
-  const AddToCartButton({super.key, required this.product});
+  const CheckoutButton({
+    super.key,
+    required this.onCheckout,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cartItems = ref.watch(cartProvider);
-    final isInCart = cartItems.any((item) => item.product.id == product.id);
+    final total = ref.watch(cartProvider.notifier).total;
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        backgroundColor: isInCart ? Colors.grey[200] : Color(0xFF60B5FF),
+        backgroundColor: total > 0 ? Color(0xFF60B5FF) : Colors.grey.shade200,
       ),
       onPressed: () {
-        if (isInCart) {
+        if (total > 0) {
           // If the product is already in the cart, remove it
-          ref.read(cartProvider.notifier).removeItem(product.id);
+          ref.read(cartProvider.notifier).clearCart();
 
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("${product.name} removed from cart")));
+              SnackBar(content: Text("Payment processing may be added later")));
+          onCheckout;
           return;
         } else {
           // If the product is not in the cart, add it
-          ref.read(cartProvider.notifier).addItem(product);
+          // ref.read(cartProvider.notifier).addItem();
 
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("${product.name} added to cart")));
+              SnackBar(content: Text("Uh, there's noting to pay")));
         }
       },
       child: Text(
-        isInCart ? "Added to cart" : "Add to cart",
+        "Checkout (\$${total.toStringAsFixed(0)})",
         style: TextStyle(
-          color: isInCart ? Colors.grey[500] : Colors.white,
-          fontSize: 16,
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );

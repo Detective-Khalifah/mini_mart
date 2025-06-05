@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:mini_mart/models/cart_item.dart";
 import "package:mini_mart/providers/cart_provider.dart";
+import "package:mini_mart/widgets/confirm_delete_cart_item_dialog.dart";
 
 class CartItemCard extends ConsumerStatefulWidget {
   final CartItem item;
@@ -21,6 +22,7 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
     final currentQuantity = cartItemProvider
         .firstWhere((item) => item.product.id == widget.item.product.id)
         .quantity;
+
     return Dismissible(
       key: Key(widget.item.product.id.toString()),
       background: Container(color: Colors.red),
@@ -94,17 +96,24 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
                               weight: 1.5,
                               size: 36,
                             ),
-                            onPressed: () {
-                              // setState(() {
-                              cartNotifier.decreaseQuantity(
-                                widget.item.product.id,
-                              );
-                              // });
+                            onPressed: () async {
+                              final index = cartItemProvider.indexWhere(
+                                  (item) =>
+                                      item.product.id ==
+                                      widget.item.product.id);
+
+                              if (cartItemProvider[index].quantity <= 1) {
+                                await confirmDeletionOfCartItem(
+                                    context, cartNotifier);
+                              } else {
+                                cartNotifier
+                                    .decreaseQuantity(widget.item.product.id);
+                              }
                             },
                           ),
                         ),
                         Text(
-                          "${currentQuantity}",
+                          "$currentQuantity",
                           style: TextStyle(
                             color: Colors.grey.shade700,
                             fontSize: 12,
@@ -150,8 +159,9 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
                               size: 36,
                               weight: 1.23,
                             ),
-                            onPressed: () {
-                              cartNotifier.removeItem(widget.item.product.id);
+                            onPressed: () async {
+                              await confirmDeletionOfCartItem(
+                                  context, cartNotifier);
                             },
                           ),
                         ),
@@ -165,5 +175,17 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
         ),
       ),
     );
+  }
+
+  Future<void> confirmDeletionOfCartItem(
+      BuildContext context, CartNotifier cartNotifier) async {
+    final shouldRemove = await showDialog<bool>(
+      context: context,
+      builder: (context) => ConfirmDeleteCartItemDialog(),
+    );
+
+    if (shouldRemove == true) {
+      cartNotifier.removeItem(widget.item.product.id);
+    }
   }
 }
