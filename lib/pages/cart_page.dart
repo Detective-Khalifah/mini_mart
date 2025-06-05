@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mini_mart/providers/cart_provider.dart';
 import 'package:mini_mart/widgets/cart_item_card.dart';
-import 'package:mini_mart/widgets/checkout_button.dart';
+import 'package:mini_mart/widgets/buttons/checkout_button.dart';
 import 'package:mini_mart/widgets/custom_app_bar.dart';
 
 class CartPage extends ConsumerWidget {

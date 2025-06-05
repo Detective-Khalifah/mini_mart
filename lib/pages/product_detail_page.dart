@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:mini_mart/models/product.dart";
 import "package:mini_mart/providers/favourites_provider.dart";
-import "package:mini_mart/widgets/add_to_cart_button.dart";
+import "package:mini_mart/widgets/buttons/add_to_cart_button.dart";
 import "package:mini_mart/widgets/custom_app_bar.dart";
 import "package:mini_mart/widgets/notification_toast/banner_overlay.dart";
 

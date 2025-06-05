@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:mini_mart/models/product.dart";
 import "package:mini_mart/providers/cart_provider.dart";
+import "package:mini_mart/widgets/notification_toast/banner_overlay.dart";
 
 class CheckoutButton extends ConsumerWidget {
   final VoidCallback onCheckout;
@@ -25,18 +25,12 @@ class CheckoutButton extends ConsumerWidget {
           // If the product is already in the cart, remove it
           ref.read(cartProvider.notifier).clearCart();
 
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Payment processing may be added later")));
+          BannerOverlay.of(context)
+              ?.showBanner("Payment processing may be added later");
           onCheckout;
           return;
         } else {
-          // If the product is not in the cart, add it
-          // ref.read(cartProvider.notifier).addItem();
-
-          ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Uh, there's noting to pay")));
+          BannerOverlay.of(context)?.showBanner("Uh, there's noting to pay");
         }
       },
       child: Text(

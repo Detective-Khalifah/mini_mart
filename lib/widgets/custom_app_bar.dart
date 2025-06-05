@@ -5,8 +5,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     required this.title,
     this.route,
+    this.isAtHome = false,
   });
 
+  final bool isAtHome;
   final String title;
   final String? route;
 
@@ -19,8 +21,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? Navigator.of(context).popAndPushNamed(route!)
             : Navigator.of(context).pop(),
       ),
-      automaticallyImplyLeading: true,
-      title: Text(title),
+      automaticallyImplyLeading: !isAtHome,
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       titleSpacing: 0,
     );
   }

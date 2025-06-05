@@ -7,7 +7,9 @@ import "package:mini_mart/pages/favourites_page.dart";
 import "package:mini_mart/pages/home_page.dart";
 import "package:mini_mart/pages/profile_page.dart";
 import "package:mini_mart/pages/product_detail_page.dart";
+import "package:mini_mart/widgets/blank_page_widget.dart";
 import "package:mini_mart/widgets/notification_toast/banner_overlay.dart";
+import "package:mini_mart/widgets/persistent_app_bar.dart";
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -50,22 +52,18 @@ class MyApp extends StatelessWidget {
           // final product = ModalRoute.of(context)!.settings.arguments as Product;
           final product = settings.arguments as Product?;
           return MaterialPageRoute(
-            builder: (context) =>
-                BannerOverlay(child: ProductDetailPage(product: product)),
+            builder: (context) => BannerOverlay(
+              child: PersistentAppBar(
+                body: ProductDetailPage(product: product),
+              ),
+            ),
           );
         }
         return null; // Return null for unhandled routes
       },
       routes: {
         "/": (context) => const MiniMart(),
-        "/blank": (context) => Scaffold(
-              body: Center(
-                child: TextButton(
-                  child: Text("Blank Page"),
-                  onPressed: () => Navigator.pushReplacementNamed(context, "/"),
-                ),
-              ),
-            ),
+        "/blank": (context) => BlankPageWidget(),
         "/home": (context) =>
             const HomePage(title: "Mini Mart", isAtHome: true),
         "/cart": (context) => const CartPage(),

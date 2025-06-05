@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:mini_mart/util/constants.dart";
+import "package:mini_mart/widgets/custom_app_bar.dart";
 import "package:mini_mart/widgets/product_card.dart";
 
 class HomePage extends StatelessWidget {
@@ -17,20 +18,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: isAtHome
-            ? null
-            : IconButton(
-                icon: const Icon(Icons.arrow_back_ios),
-                onPressed: () =>
-                    Navigator.of(context).popAndPushNamed("/blank"),
-              ),
-        automaticallyImplyLeading: !isAtHome,
-        title: Text(
-          title,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-        ),
-        titleSpacing: 0,
+      appBar: CustomAppBar(
+        title: title,
+        isAtHome: isAtHome,
+        route: isAtHome ? null : "/blank",
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -48,13 +39,6 @@ class HomePage extends StatelessWidget {
                   mainAxisSpacing: 8,
                   mainAxisExtent: 240,
                 ),
-                // gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                //   maxCrossAxisExtent: 240,
-                //   mainAxisExtent: 160,
-                //   // childAspectRatio: 0.75,
-                //   crossAxisSpacing: 16,
-                //   mainAxisSpacing: 16,
-                // ),
                 itemBuilder: (context, index) {
                   return ProductCard(product: Constants.products[index]);
                 },

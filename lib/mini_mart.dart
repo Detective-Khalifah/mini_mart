@@ -50,35 +50,47 @@ class _MiniMartState extends ConsumerState<MiniMart> {
         controller: _pageController,
         children: [_pages[_selectedIndex]],
       ),
-      bottomNavigationBar: NavigationBar(
+      bottomNavigationBar: Container(
+        color: Colors.white,
         height: 96,
-        selectedIndex: _selectedIndex,
-        onDestinationSelected: _onItemTapped,
-        destinations: [
-          // Default size -- 24
-          NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
-          NavigationDestination(
-            icon: Badge(
-              isLabelVisible: cart > 0 ? true : false,
-              label: Text(cart.toString()),
-              backgroundColor: Colors.blueGrey,
-              padding: const EdgeInsets.all(4),
-              child: Icon(Icons.shopping_cart_outlined),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            NavigationBar(
+              height: 80,
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: _onItemTapped,
+              labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+              surfaceTintColor: Colors.transparent,
+              destinations: [
+                // Default size -- 24
+                NavigationDestination(
+                    icon: Icon(Icons.home_outlined), label: 'Home'),
+                NavigationDestination(
+                  icon: Badge(
+                    isLabelVisible: cart > 0 ? true : false,
+                    label: Text(cart.toString()),
+                    backgroundColor: Colors.blueGrey,
+                    padding: const EdgeInsets.all(4),
+                    child: Icon(Icons.shopping_cart_outlined),
+                  ),
+                  label: 'Cart',
+                  selectedIcon: Icon(Icons.shopping_cart_rounded),
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.favorite_outline),
+                  label: 'Favorites',
+                  selectedIcon: Icon(Icons.favorite_sharp),
+                ),
+                NavigationDestination(
+                  icon: Icon(Icons.person),
+                  label: 'Profile',
+                  selectedIcon: Icon(CupertinoIcons.person_circle),
+                ),
+              ],
             ),
-            label: 'Cart',
-            selectedIcon: Icon(Icons.shopping_cart_rounded),
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.favorite_outline),
-            label: 'Favorites',
-            selectedIcon: Icon(Icons.favorite_sharp),
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-            selectedIcon: Icon(CupertinoIcons.person_circle),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
