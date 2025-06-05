@@ -6,6 +6,7 @@ import "package:mini_mart/pages/favourites_page.dart";
 import "package:mini_mart/pages/home_page.dart";
 import "package:mini_mart/pages/profile_page.dart";
 import "package:mini_mart/providers/cart_provider.dart";
+import "package:mini_mart/widgets/persistent_app_bar.dart";
 
 class MiniMart extends ConsumerStatefulWidget {
   const MiniMart({super.key});
@@ -18,8 +19,10 @@ class _MiniMartState extends ConsumerState<MiniMart> {
   late PageController _pageController;
   static const List<Widget> _pages = <Widget>[
     HomePage(
-        title: "Technology", category: "Smartphones, Laptops & Accessories"),
-    CartPage(), // to be implemented
+      title: "Technology",
+      category: "Smartphones, Laptops & Accessories",
+    ),
+    CartPage(),
     FavouritesPage(), // to be implemented
     ProfilePage(), // to be implemented
   ];
@@ -42,57 +45,18 @@ class _MiniMartState extends ConsumerState<MiniMart> {
     final cart = ref.watch(cartProvider).length;
 
     return Scaffold(
-      appBar: AppBar(
-        // backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        leading: FittedBox(
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              shape: BoxShape.rectangle,
-            ),
-            padding: const EdgeInsets.all(8),
-            // margin: const EdgeInsets.all(8),
-            child: Text(
-              "Full Logo",
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: Color(0xFF2563EB),
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "DELIVERY ADDRESS",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
-            Text(
-              "Umuezike Road, Oyo State",
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-          ],
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(icon: const Icon(Icons.notifications), onPressed: () {}),
-        ],
-      ),
+      appBar: PersistentAppBar(),
       body: PageView(
         controller: _pageController,
         children: [_pages[_selectedIndex]],
       ),
       bottomNavigationBar: NavigationBar(
+        height: 96,
         selectedIndex: _selectedIndex,
         onDestinationSelected: _onItemTapped,
         destinations: [
           // Default size -- 24
-          NavigationDestination(icon: Icon(Icons.home), label: 'Home'),
+          NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Home'),
           NavigationDestination(
             icon: Badge(
               isLabelVisible: cart > 0 ? true : false,

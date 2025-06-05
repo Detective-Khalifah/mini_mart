@@ -1,16 +1,36 @@
-# mini_mart
+# mini_mart - eCommerce Preview App
 
-AlphaTwelve Mobile App Dev task.
+![App Screenshot](screenshots/app_preview.png) <!-- Add screenshot here -->
 
-## Getting Started
+AlphaTwelve Mobile App Dev task. A 3-screen e-Commerce preview app  based on provided Figma designs, featuring product browsing, detailed product views, and cart management.
 
-This project is a starting point for a Flutter application.
+## Features
+- **Home Screen**: Product grid with categories
+- **Product Details**: Full product information with image
+- **Cart Management**: Add/remove items, quantity adjustment
+- **State Management**: Riverpod for cart and favorites
+- **UI Fidelity**: Pixel-perfect implementation of Figma designs
+- **Responsive Design**: Adapts to different screen sizes
 
-A few resources to get you started if this is your first Flutter project:
+## Technical Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Framework**: Flutter SDK 3.27.2; Dart SDK 3.6.1
+- **State Management**: Riverpod 2.6.1
+- **Navigation**: Flutter Navigator
+- **Fonts**: IBM Plex Sans (primary), Roboto (fallback)
+- **Icons**: Material Icons
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Setup Instructions
+
+### Prerequisites
+- Flutter SDK (version 3.27.2 or higher)
+- Android Studio/VSCode with Flutter plugin
+- Dart SDK (included with Flutter)
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Detective-Khalifah/mini_mart.git
+   cd minimart
+2. Install dependencies: ```flutter pub get```
+3. Run the app: ```flutter run <platform (optional)>```

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mini_mart/models/product.dart';
-import 'package:mini_mart/providers/favourites_provider.dart';
-import 'package:mini_mart/widgets/add_to_cart_button.dart';
-import 'package:mini_mart/widgets/custom_app_bar.dart';
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:mini_mart/models/product.dart";
+import "package:mini_mart/providers/favourites_provider.dart";
+import "package:mini_mart/widgets/add_to_cart_button.dart";
+import "package:mini_mart/widgets/custom_app_bar.dart";
+import "package:mini_mart/widgets/notification_toast/banner_overlay.dart";
 
 class ProductDetailPage extends StatelessWidget {
   const ProductDetailPage({super.key, required this.product});
@@ -48,7 +49,7 @@ class ProductDetailPage extends StatelessWidget {
                                         errorBuilder: (context, error,
                                                 stackTrace) =>
                                             const Center(
-                                                child: Text('Image not found')),
+                                                child: Text("Image not found")),
                                       ),
                                     ),
                                   ),
@@ -69,18 +70,10 @@ class ProductDetailPage extends StatelessWidget {
                                         backgroundColor: Colors.white,
                                         child: IconButton(
                                           onPressed: () {
-                                            ScaffoldMessenger.of(context)
-                                                .clearSnackBars();
-
                                             favouritesNotifier
                                                 .toggleFavourite(product!);
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    "${product!.name} added to favorites"),
-                                              ),
-                                            );
+                                            BannerOverlay.of(context)?.showBanner(
+                                                "${product!.name} added to favorites");
                                           },
                                           icon: Icon(
                                             isFavourite
@@ -93,7 +86,6 @@ class ProductDetailPage extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  // child: ,
                                 ),
                               ],
                             ),
@@ -133,17 +125,20 @@ class ProductDetailPage extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .displaySmall
-                                  ?.copyWith(fontWeight: FontWeight.w900),
-                              // const TextStyle(
-                              //   fontSize: 20,
-                              //   fontWeight: FontWeight.bold,
-                              // ),
+                                  ?.copyWith(
+                                    fontSize: 32.75,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                             ),
                           ),
                           const SizedBox(height: 16),
                           Text(
                             "About this item",
-                            style: Theme.of(context).textTheme.bodyLarge,
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 16.0),
@@ -151,13 +146,18 @@ class ProductDetailPage extends StatelessWidget {
                               children: product!.description.map((descItem) {
                                 return Text(
                                   "- $descItem",
-                                  style: Theme.of(context).textTheme.bodyLarge,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                      ),
                                 );
                               }).toList(),
                             ),
                           ),
                           const SizedBox(height: 24),
-                          // AddToCartButton(product: widget.product!),
                         ],
                       ),
                     ),

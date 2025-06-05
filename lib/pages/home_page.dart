@@ -21,12 +21,15 @@ class HomePage extends StatelessWidget {
         leading: isAtHome
             ? null
             : IconButton(
-                icon: const Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back_ios),
                 onPressed: () =>
                     Navigator.of(context).popAndPushNamed("/blank"),
               ),
         automaticallyImplyLeading: !isAtHome,
-        title: Text(title),
+        title: Text(
+          title,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+        ),
         titleSpacing: 0,
       ),
       body: SingleChildScrollView(
@@ -41,10 +44,17 @@ class HomePage extends StatelessWidget {
               GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  childAspectRatio: 0.75,
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
+                  mainAxisExtent: 240,
                 ),
+                // gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                //   maxCrossAxisExtent: 240,
+                //   mainAxisExtent: 160,
+                //   // childAspectRatio: 0.75,
+                //   crossAxisSpacing: 16,
+                //   mainAxisSpacing: 16,
+                // ),
                 itemBuilder: (context, index) {
                   return ProductCard(product: Constants.products[index]);
                 },
