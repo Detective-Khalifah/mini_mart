@@ -78,7 +78,8 @@ class ProductDetailPage extends StatelessWidget {
                                           icon: Icon(
                                             isFavourite
                                                 ? Icons.favorite_rounded
-                                                : Icons.favorite_outline,
+                                                : Icons
+                                                    .favorite_outline_rounded,
                                           ),
                                           color:
                                               isFavourite ? Colors.red : null,

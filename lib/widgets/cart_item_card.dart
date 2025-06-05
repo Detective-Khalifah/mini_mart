@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:mini_mart/models/cart_item.dart";
 import "package:mini_mart/providers/cart_provider.dart";
 import "package:mini_mart/widgets/confirm_delete_cart_item_dialog.dart";
+import "package:phosphor_flutter/phosphor_flutter.dart";
 
 class CartItemCard extends ConsumerStatefulWidget {
   final CartItem item;
@@ -91,7 +92,7 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
                           radius: 32,
                           child: IconButton(
                             icon: Icon(
-                              Icons.remove,
+                              PhosphorIcons.minus(),
                               color: Colors.grey.shade500,
                               weight: 1.5,
                               size: 36,
@@ -133,7 +134,7 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
                             radius: 32,
                             child: IconButton(
                               icon: Icon(
-                                Icons.add,
+                                PhosphorIcons.plus(),
                                 color: Colors.grey.shade700,
                                 size: 36,
                                 weight: 1.5,
@@ -154,7 +155,7 @@ class _CartItemCardState extends ConsumerState<CartItemCard> {
                           radius: 32,
                           child: IconButton(
                             icon: Icon(
-                              Icons.delete_outline,
+                              PhosphorIcons.trash(),
                               color: Color(0xFF999999),
                               size: 36,
                               weight: 1.23,

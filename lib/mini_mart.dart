@@ -1,4 +1,3 @@
-import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:mini_mart/pages/cart_page.dart";
@@ -7,6 +6,8 @@ import "package:mini_mart/pages/home_page.dart";
 import "package:mini_mart/pages/profile_page.dart";
 import "package:mini_mart/providers/cart_provider.dart";
 import "package:mini_mart/widgets/persistent_app_bar.dart";
+
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class MiniMart extends ConsumerStatefulWidget {
   const MiniMart({super.key});
@@ -65,7 +66,7 @@ class _MiniMartState extends ConsumerState<MiniMart> {
               destinations: [
                 // Default size -- 24
                 NavigationDestination(
-                    icon: Icon(Icons.home_outlined), label: 'Home'),
+                    icon: Icon(PhosphorIcons.houseSimple()), label: 'Home'),
                 NavigationDestination(
                   icon: Badge(
                     isLabelVisible: cart > 0 ? true : false,
@@ -78,14 +79,14 @@ class _MiniMartState extends ConsumerState<MiniMart> {
                   selectedIcon: Icon(Icons.shopping_cart_rounded),
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.favorite_outline),
+                  icon: Icon(PhosphorIcons.heart()),
                   label: 'Favorites',
                   selectedIcon: Icon(Icons.favorite_sharp),
                 ),
                 NavigationDestination(
-                  icon: Icon(Icons.person),
+                  icon: Icon(PhosphorIcons.userCircle()),
                   label: 'Profile',
-                  selectedIcon: Icon(CupertinoIcons.person_circle),
+                  selectedIcon: Icon(PhosphorIcons.user()),
                 ),
               ],
             ),
